@@ -5,12 +5,12 @@ import moment from 'moment';
 
 //const API_URL = import.meta.env.VITE_API_URL || 'https://uatagile.indiashelter.in/api';
 //const API_URL = import.meta.env.VITE_API_URL || 'https://itrustuat.indiashelter.in/api';
-const API_URL = import.meta.env.VITE_API_URL || 'https://itrust.indiashelter.in:6443/api';
+//  const API_URL = import.meta.env.VITE_API_URL || 'https://itrust.indiashelter.in:6443/api';
 //const API_URL = import.meta.env.VITE_API_URL;
 
 //const API_URL = "https://itrust.indiashelter.in:6443/api";
 
-//const API_URL = "http://localhost:8005/api";
+const API_URL = "http://localhost:8000/api";
 
 const FACE_DETECTION_URL = "/account/check_if_face_authencticate/"
  const FACE_LIVE_PATRON_ID = import.meta.env.VITE_FACE_LIVE_PATRON_ID;
@@ -172,12 +172,36 @@ async function getLoginOtp(mobile_no, data) {
   }
 }
 
-async function verifyLoginOtp(mobile_no, otp) {
-  const res = await axios.post(
+// async function verifyLoginOtp(mobile_no, otp) {
+//   const res = await axios.post(
+//     `${API_URL}/account/login-sms-otp-verify/${mobile_no}`,
+//     otp,
+//     requestOptions,
+//   );
+//   return res.data;
+// }
+
+async function verifyLoginOtp(mobile_no, otp,faceLogin) {
+
+  let res;
+
+  if(faceLogin == true) {
+
+    res = await axios.post(
+    `${API_URL}/account/face-login/${mobile_no}`,
+    {},
+    requestOptions,
+  );
+  }
+  else{
+    
+   res = await axios.post(
     `${API_URL}/account/login-sms-otp-verify/${mobile_no}`,
     otp,
     requestOptions,
   );
+
+}
   return res.data;
 }
 

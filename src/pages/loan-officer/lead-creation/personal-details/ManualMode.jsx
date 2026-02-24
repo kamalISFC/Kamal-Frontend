@@ -3602,7 +3602,7 @@ const handleRejectOCR = async() => {
         }
         disabled={
          disableEmailInput ||
-          values.applicants[activeIndex].personal_details.is_email_verified ||
+          values.applicants[activeIndex].personal_details?.is_email_verified ||
           values?.applicants?.[activeIndex]?.applicant_details?.extra_params?.qualifier ||
           (values.applicants[activeIndex]?.applicant_details?.is_primary
             ? tempQualifier
@@ -3610,8 +3610,7 @@ const handleRejectOCR = async() => {
           idDisableFields
         }
         message={
-
-          values.applicants[activeIndex].personal_details.is_email_verified
+          values.applicants[activeIndex].personal_details?.is_email_verified
             ? `OTP Verfied
           <img src="${otpVerified}" alt='Otp Verified' role='presentation' />
           `
@@ -3635,7 +3634,7 @@ const handleRejectOCR = async() => {
         <OtpInput
           label='Enter OTP'
           required
-          verified={values.applicants[activeIndex].personal_details.is_email_verified}
+          verified={values.applicants[activeIndex].personal_details?.is_email_verified}
           setOTPVerified={setEmailVerified}
           onSendOTPClick={sendEmailOTP}
           defaultResendTime={30}

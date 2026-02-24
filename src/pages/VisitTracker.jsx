@@ -113,6 +113,7 @@ const VisitTracker = () => {
   const [selfieLoader, setSelfieLoader] = useState(false);
   const [loSelfieLatLong, setLoSelfieLatLong] = useState(null);
   const [visitId, setVisitId] = useState(null);
+  const [formSubmitting, setFormSubmitting] = useState(false);
 
   const [selectionRange, setSelectionRange] = useState({
     startDate: parseISO(moment().subtract(30, 'days').format()),
@@ -171,7 +172,7 @@ const VisitTracker = () => {
       };
 
       try {
-        setLoading(true);
+        setFormSubmitting(true);
         const response = await createVisit(payload, {
           headers: { Authorization: token },
         });
@@ -188,14 +189,15 @@ const VisitTracker = () => {
         } else {
           setSelfieError('Selfie not uploaded');
         }
-        setShow(false);
-        getAllVisitsData();
+        
         formik.resetForm({ values: initialValue });
         setVisitId(visitId);
+        getAllVisitsData();
+        setShow(false);
       } catch (error) {
         console.error('Error creating visit:', error);
       } finally {
-        setLoading(false);
+        setFormSubmitting(false);
       }
     },
   });
@@ -666,7 +668,7 @@ const VisitTracker = () => {
           title='Visit Tracker'
           actionMsg='Save'
           className='!flex
-    !w-[95%]
+    !w-[95%] overflow-hidden
   md:!w-[600px] '
           showpopup={show}
           hideAction={editVisit ? true : false}
@@ -684,6 +686,11 @@ const VisitTracker = () => {
             setSelfieUploads(null);
           }}
         >
+          {formSubmitting && (
+            <div className='absolute inset-0 flex items-center justify-center bg-white z-50'>
+              <LoaderDynamicText text='' textColor='black' height='60%' />
+            </div>
+          )}
           <div className='p-6 overflow-y-scroll overflow-x-hidden !relative'>
             <DropDown
               label='Purpose of Visit'

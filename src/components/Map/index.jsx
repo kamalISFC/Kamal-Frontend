@@ -6,7 +6,7 @@ import MapSearchDrawer from './MapSearchDrawer';
 import { useJsApiLoader, GoogleMap, Marker, Autocomplete } from '@react-google-maps/api';
 import { LeadContext } from '../../context/LeadContextProvider';
 
-const GOOGLE_MAPS_API_KEY = '';
+const GOOGLE_MAPS_API_KEY = 'AIzaSyB_VgPtaHSDn21sTi9b6f9Ga15cjvZ6-Sk';
 
 const current_location = [
   {

@@ -156,6 +156,20 @@ const encryptedImages = images.map(img => encrypt(img));
       );
 
 
+//       const res = {data:{
+//     "data": {
+//         "liveness": {
+//             "label": "live",
+//             "confidence": 1
+//         },
+//         "face_match": {
+//             "matched": "Yes",
+//             "similarity": 90.3
+//         }
+//     },
+//     "status": true
+// }}
+
             console.log("BASE",res?.data?.data)
 
 
